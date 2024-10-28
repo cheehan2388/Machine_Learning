@@ -19,19 +19,19 @@ np.random.seed(1)
 x = np.zeros((data_num, feat + 1))
 
 for i  in range(data_num) :
-    x[i,0] = 1 #設置x0
+    x[i,0] = 1 
     for j in range(1,feat + 1) :
-        x[i,j] = data[i][j] #data[第幾個字典][第幾個鍵值]
+        x[i,j] = data[i][j]
 
 for N in N_Range :
     E_in_avg = []
     E_out_avg = []
     for t in range(experiment_time) :
         splice_data = np.random.permutation(data_num)
-        train_set   = splice_data[:N] #N_exp 個 traindata
+        train_set   = splice_data[:N] 
         test_set    = splice_data[N:]
         
-        xtrain_set  = x[train_set]  # train set 是一組數字 index, x【train_set] 就會對著他要的行來取。
+        xtrain_set  = x[train_set]  
         xtest_set   = x[test_set]
 
         ytrain_set  = arr_label[train_set]
@@ -42,7 +42,7 @@ for N in N_Range :
         w_Lin        = x_pseudo_inv@ytrain_set
         
         # y = wx (outsample)
-        y_ht_train = xtrain_set @ w_Lin #don't forget mtrx rule
+        y_ht_train = xtrain_set @ w_Lin 
         y_ht_test = xtest_set @ w_Lin
 
         #E_in = (1/N)(y - y^)^2 , y^ = wLin@X , 
@@ -62,7 +62,6 @@ plt.title("Learning Curves: In-sample and Out-of-sample Error vs Training Set Si
 plt.legend()
 plt.grid(True)
 plt.show()
-# for n in exp_t:
 
 
     
