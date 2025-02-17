@@ -8,24 +8,6 @@ import bz2
 from tqdm import tqdm  # 進度條顯示
 from sklearn.model_selection import KFold  # 3-fold Cross-Validation
 
-def download_and_extract(url, bz2_filename, extracted_filename):
-    """
-    下載並解壓縮 .bz2 檔案。
-    """
-    if not os.path.isfile(extracted_filename):
-        if not os.path.isfile(bz2_filename):
-            print(f"正在下載 {bz2_filename} 從 {url}...")
-            urllib.request.urlretrieve(url, bz2_filename)
-            print(f"已下載 {bz2_filename}.")
-        else:
-            print(f"{bz2_filename} 已存在。")
-        print(f"正在解壓縮 {bz2_filename}...")
-        with bz2.BZ2File(bz2_filename) as fr, open(extracted_filename, 'wb') as fw:
-            fw.write(fr.read())
-        print(f"已解壓縮到 {extracted_filename}.")
-    else:
-        print(f"{extracted_filename} 已存在。跳過下載和解壓縮。")
-
 def filter_and_map_classes(y, x, class1=2, class2=6):
     """
     過濾出指定類別並映射標籤為 -1 和 +1。
@@ -83,11 +65,11 @@ def main():
     y_train_full, x_train_full = svm_read_problem('mnist.scale')
 
     # Load test data
-    print("Loading test data...")
+    
     y_test_full, x_test_full = svm_read_problem('mnist.scale.t')
 
     # 過濾出類別 2 和 6 並映射標籤
-    print("過濾類別並映射標籤...")
+
     y_train, x_train = filter_and_map_classes(y_train_full, x_train_full, class1=2, class2=6)
     y_test, x_test = filter_and_map_classes(y_test_full, x_test_full, class1=2, class2=6)
     
@@ -101,8 +83,7 @@ def main():
     num_features = max_feature_index
     print(f"特徵數量（不含偏置項）: {num_features}")
     
-    # 將稀疏特徵轉換為密集格式並添加偏置項
-    print("將特徵轉換為密集格式並添加偏置項...")
+   
     X_train_dense = convert_to_dense(x_train, num_features)
     X_test_dense = convert_to_dense(x_test, num_features)
     
@@ -120,8 +101,7 @@ def main():
     E_out_hist = []
     non_zero_counts = []
     
-    # 進行實驗
-    print(f"開始進行 {experiment_time} 次實驗...")
+   
     for exp in tqdm(range(experiment_time), desc="進行實驗"):
       
         np.random.seed(exp)
