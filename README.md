@@ -1,5 +1,51 @@
 Machine Learning course offered by profesor Hsuan-Tien Lin .
 
 course url ： "[covered content](https://www.csie.ntu.edu.tw/~htlin/course/ml24fall/)"
+cat << 'EOF' > README.md
+# 🤖 NTU Machine Learning: Foundations & Systems
+### *Mathematical Rigor, System Robustness & Competitive Performance*
 
-.🤖 NTU Machine Learning: Foundations & SystemsComprehensive Implementation & Theoretical ProofsThis repository contains a series of advanced implementations and theoretical analyses conducted during the Graduate-level Machine Learning course at National Taiwan University (NTU)3333. The curriculum focuses on the mathematical foundations of learning, ranging from Computational Learning Theory to Kernel Methods and Ensemble Learning44444444444444.+4🛠 Core Competencies Demonstrated1. Mathematical Optimization & ProofsMoving beyond "black-box" library usage, this work includes rigorous derivations for:Newton's Method for Logistic Regression: Deriving the Hessian matrix $A_E(w_t) = X^T DX$ to optimize cross-entropy error5555.+1SVM Dual Formulation: Proving the equivalence between Augmented Primal and Dual problems under strong duality666666666.+2Generalization Bounds: Analyzing VC Dimension ($d_{vc}$) and Rademacher complexity to evaluate hypothesis set power7777.+1Kernel Validity: Proving that trigonometric and Gaussian (RBF) functions satisfy Mercer’s condition for valid kernels8888.+12. Algorithmic Implementation (from Scratch)Implementation of foundational and advanced algorithms without relying on high-level fit() wrappers:Perceptron Learning Algorithm (PLA): Variants including cyclic, randomized, and "correcting-until-perfect" on real-world sparse datasets like RCV1999999999.+2Ensemble Methods: Implementation of AdaBoost-Stump and Gradient Boosted Decision Trees (GBDT)10101010.+1Optimization: Stochastic Gradient Descent (SGD) for Multinomial Logistic Regression (MLR) and coordinate descent for Elastic Net regularization11111111.+13. Large-Scale Systems & CompetitionsFinal Project (HTMLB): A binary classification system to predict Major League Baseball game outcomes using Kaggle as a competitive evaluation platform121212121212121212.+4MNIST Digit Classification: Utilizing LIBLINEAR to solve L1-regularized logistic regression problems13131313.+2📈 Key Technical ProjectsHigh-Dimensional Linear ModelsAnalyzed the behavior of $E_{in}$ vs. $E_{out}$ using the cpusmall dataset14141414.+1Demonstrated Skill: Understanding the Bias-Variance tradeoff through learning curves and polynomial transforms15151515.+1Hard-Margin & Soft-Margin SVMsDerived the optimal margin in Z-space using polynomial transforms $\Phi(x)$ and analyzed the impact of hyperparameters $C$ and $\gamma$ on the number of Support Vectors161616161616161616.+2Key Finding: Lower $\gamma$ values spread the influence of support vectors, leading to smoother decision boundaries and better generalization in noisy datasets17171717.+1Neural Network ArchitectureAnalyzed backpropagation in multi-layer networks and mathematically proved the impossibility of implementing XOR with certain $d-(d-1)-1$ feed-forward architectures181818181818181818.+2💻 Tech StackLanguages: Python (NumPy, Scipy), C++19191919.+1Libraries: LIBLINEAR, LIBSVM20202020.+1Environments: Gradescope, Kaggle, Discord-based collaboration212121212121212121.+2📑 Course Summary (Fall 2024)Instructor: Prof. Hsuan-Tien Lin (Author of Learning From Data)222222222222222222.+2Level: Advanced Graduate / Honors Undergraduate.Emphasis: Rigorous math, high-performance implementation, and reproducibility23232323.
+This repository contains high-level implementations and theoretical analyses from the **NTU Machine Learning (Fall 2024)** course[cite: 1, 119]. This work represents a mastery of both the mathematical "why" and the engineering "how," culminating in a highly robust final project.
+
+---
+
+## 🏆 Featured Achievement: Generalization & Robustness
+In the **Hyper Thrill Machine Learning Baseball (HTMLB)** final project, I engineered a model that prioritized stability over leaderboard noise[cite: 430, 431, 455]:
+
+* **Public Leaderboard Ranking:** 113 / 130 [cite: 438, 473]
+* **Private Leaderboard Ranking:** **23 / 130** [cite: 439, 474]
+* **Robustness Delta:** **+90 Positions** * **Insight:** This significant jump demonstrates an advanced understanding of the **Bias-Variance Tradeoff**[cite: 107, 655, 656]. While other competitors over-fit to the public test set, my approach utilized rigorous validation to ensure high performance on unseen 2024 game data[cite: 437, 474].
+
+---
+
+## 🛠 Technical Skill Level
+
+### 1. Mathematical Foundations & Proofs
+Moving beyond "black-box" library usage, this portfolio includes rigorous derivations for:
+* **Newton's Method for Logistic Regression:** Derived the Hessian matrix $A_E(w_t) = X^T DX$ to optimize cross-entropy error[cite: 591, 595, 596].
+* **Support Vector Machines (SVM):** Proved the equivalence between Primal and Dual soft-margin problems and analyzed the impact of $C$ and $\gamma$ on margin width[cite: 948, 949, 986, 990].
+* **VC Dimension & Complexity:** Calculated $d_{vc}$ and analyzed Rademacher complexity for various hypothesis sets to predict generalization error[cite: 19, 57, 180].
+
+### 2. Algorithmic Implementation (from Scratch)
+Implementation of foundational and advanced algorithms without high-level wrappers:
+* **Ensemble Learning:** Implementation of **AdaBoost-Stump** and analysis of $E_{in}$ and $E_{out}$ over 500 iterations[cite: 389, 392, 395].
+* **Optimization:** Stochastic Gradient Descent (SGD) for Multinomial Logistic Regression and Coordinate Descent for Elastic Net regularization[cite: 300, 301, 612, 652].
+* **State Estimation:** Used Extended Kalman Filters (EKF) and PID control for robotics/AMR integration.
+
+### 3. Large-Scale Systems
+* **L1-Regularized Logistic Regression:** Applied to the MNIST dataset using **LIBLINEAR** to achieve sparsity and high efficiency[cite: 241, 243, 251, 267].
+* **Kernel Engineering:** Implemented and proved the validity of non-linear kernels (Trigonometric, RBF, and Threshold-based)[cite: 884, 887, 893, 905].
+
+---
+
+## 💻 Tech Stack
+* **Languages:** Python (NumPy, SciPy), C++
+* **Specialized Tools:** LIBLINEAR, LIBSVM, Gazebo, ROS/ROS2
+* **Environments:** Kaggle (Competitive ML), Gradescope
+
+---
+
+## 📑 Course Context (NTU Fall 2024)
+* **Instructor:** Prof. Hsuan-Tien Lin [cite: 2, 120]
+* **Focus:** Bridging the gap between computational learning theory and practical, robust machine learning systems[cite: 11, 202, 214].
+EOF
