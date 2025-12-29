@@ -49,3 +49,6 @@ Implementation of foundational and advanced algorithms without high-level wrappe
 * **Instructor:** Prof. Hsuan-Tien Lin 
 * **Focus:** Bridging the gap between computational learning theory and practical, robust machine learning systems
 EOF
+
+
+![alt text](image.png)
