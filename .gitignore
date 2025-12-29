@@ -1,1 +1,13 @@
-.csv
+
+*.npy
+*.t
+*.scale
+*.bin
+*.pkl
+*.h5
+
+
+*.pt
+*.pth
+*.ckpt
+*.onnx
