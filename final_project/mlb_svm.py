@@ -103,7 +103,6 @@ param_grid = {
 grid = list(ParameterGrid(param_grid))
 
 available_years = sorted(df['year'].unique())
-print(f"可用的年份: {available_years}")
 
 models = {}
 
@@ -111,7 +110,7 @@ def split_train_test_per_year(df, year, test_size=0.2):
     df_year = df[df['year'] == year]
     n_total = len(df_year)
     if n_total == 0:
-        print(f"警告：{year}年沒有數據。")
+        
         return pd.DataFrame(), pd.DataFrame()
     n_test = max(1, int(n_total * test_size))   
     df_train = df_year.iloc[:-n_test]
@@ -120,12 +119,10 @@ def split_train_test_per_year(df, year, test_size=0.2):
 
 
 for year in available_years:
-    print(f"\n訓練 {year} 年的模型...")
+   
     train_df, test_df = split_train_test_per_year(df, year, test_size=0.2)
     
-    if train_df.empty:
-        print(f"警告：{year}年的訓練集為空，跳過該年份的模型訓練。")
-        continue
+  
     
     X_train = train_df.drop(columns=['home_team_win', 'year'])
     y_train = train_df['home_team_win']
@@ -142,37 +139,37 @@ for year in available_years:
         try:
             pipeline.fit(X_train, y_train)
         except Exception as e:
-            print(f"錯誤：{year}年使用參數 {params} 訓練失敗。錯誤信息：{e}")
+            print(f"{e}")
             continue
         
         try:
             y_pred = pipeline.predict(X_test)
             acc = accuracy_score(y_test, y_pred)
         except Exception as e:
-            print(f"錯誤：{year}年模型在測試集評估時失敗。錯誤信息：{e}")
+            print(f"{e}")
             continue
         
         if acc > best_score:
             best_score = acc
             best_params = params
     
-    print(f"最佳參數: {best_params}")
-    print(f"驗證最佳準確率: {best_score:.4f}")
+    print(f"bestparam: {best_params}")
+    print(f"bestscore: {best_score:.4f}")
     
     pipeline.set_params(**best_params)
     try:
         pipeline.fit(X_train, y_train)
     except Exception as e:
-        print(f"錯誤：{year}年使用最佳參數 {best_params} 訓練失敗。錯誤信息：{e}")
+        print(f"Error:{year} {best_params} {e}")
         continue
     
     models[year] = pipeline
 
 
-print("\n所有年份的模型訓練和評估完成。")
+
 
 joblib.dump(models, 'trained_models_3.pkl')
-print("模型已保存至 'trained_models.pkl'。")
+print(" 'trained_models.pkl'。")
 
 
 #test
@@ -228,9 +225,7 @@ test_df
 unique_years = test_df['year'].unique()
 
 for yr in unique_years:
-    if yr not in models:
-        print(f"警告：{yr}年的模型不存在，該年份資料將跳過預測。")
-        continue
+ 
 
     df_year = test_df[test_df['year'] == yr].copy()
  
@@ -243,4 +238,4 @@ for yr in unique_years:
 
 submission = test_df[['id', 'home_team_win']].copy()
 submission.to_csv("submission_3_1.5.csv", index=False)
-print("submission.csv 已建立完成。")
+
