@@ -14,7 +14,7 @@ import scipy.stats as stats
 from statsmodels.stats.proportion import proportions_ztest
 
 def analyze_night_game_effect(df):
-    print("\n=== is_night_game 影響分析 ===")
+
     
     # 先確保 target 是 0/1
     df['home_win_int'] = df['home_team_win'].astype(int)
@@ -37,48 +37,8 @@ def analyze_night_game_effect(df):
     night_rate, night_n, night_wins = win_rate_stats(night_games)
     unk_rate, unk_n, unk_wins = win_rate_stats(unknown_games)
     
-    print(f"日間比賽：{day_n} 場，勝率 {day_rate:.4f} ({day_wins}/{day_n})")
-    print(f"夜間比賽：{night_n} 場，勝率 {night_rate:.4f} ({night_wins}/{night_n})")
-    print(f"未知 (NaN)：{unk_n} 場，勝率 {unk_rate:.4f} ({unk_wins}/{unk_n})")
-    
-    # 1. 單樣本檢定：每組 vs 0.5
-    def binom_pvalue(n, wins):
-        if n == 0:
-            return 1.0
-        return stats.binomtest(wins, n, p=0.5).pvalue
-    
-    day_p = binom_pvalue(day_n, day_wins)
-    night_p = binom_pvalue(night_n, night_wins)
-    unk_p = binom_pvalue(unk_n, unk_wins)
-    
-    print(f"\n單樣本檢定 (vs 隨機 0.5):")
-    print(f"日間 p-value: {day_p:.4f} {'← 無顯著影響 (隨機)' if day_p > 0.05 else '← 有影響！'}")
-    print(f"夜間 p-value: {night_p:.4f} {'← 有特別影響！' if night_p < 0.05 else '← 無顯著差異'}")
-    print(f"未知 p-value: {unk_p:.4f}")
-    
-    # 2. 雙樣本檢定：日間 vs 夜間
-    if day_n > 0 and night_n > 0:
-        count = np.array([day_wins, night_wins])
-        nobs = np.array([day_n, night_n])
-        stat, p2 = proportions_ztest(count, nobs)
-        print(f"\n日間 vs 夜間 差異檢定 p-value: {p2:.4f} {'← 顯著不同！' if p2 < 0.05 else '← 無顯著差異'}")
-    else:
-        print("\n樣本不足，無法比較日夜")
-    
-    # 3. 自動建議填值
-    print("\n=== 填值建議 ===")
-    if day_p > 0.05 and night_p < 0.05 and (day_n > 30 and night_n > 30):
-        print("✅ 結論：日間勝率接近隨機，夜間有特別影響 → 建議把 NaN 填成 0（日間）")
-        return 0  # 返回建議填值
-    elif unk_rate > 0.6 or unk_rate < 0.4:  # 未知組本身有偏
-        print("⚠️ 未知組勝率偏離 0.5，建議加 missing flag 不要強制填")
-        return None
-    else:
-        print("❌ 不符合條件，建議保留 NaN + 加 missing flag")
-        return None
-# ==========================================
-# 1. CONFIG
-# ==========================================
+
+
 CONFIG = {
     'SEED': 42,
     'TEST_START_MONTH': 8,
@@ -140,9 +100,7 @@ def load_and_preprocess(filepath):
     df['is_night_game'] = (df['is_night_game'] == True).astype(int)
     return df
 
-# ==========================================
-# 3. SABERMETRICS ENGINEERING
-# ==========================================
+
 def engineer_sabermetrics(df):
     print("Engineering Sabermetric features...")
     
@@ -186,9 +144,7 @@ def encode_features(df):
     
     return df
 
-# ==========================================
-# 5. MAIN
-# ==========================================
+
 def main():
     try:
         df = load_and_preprocess('train_data.csv')
@@ -199,7 +155,7 @@ def main():
     df = engineer_sabermetrics(df)
     df = encode_features(df)
     
-    # Feature list: 包含所有滾動、歷史 mean/std/skew 等（你的數據很多這些）
+
     feature_cols = [c for c in df.columns if c not in CONFIG['DROP_COLS']]
     
     # Walk-forward split
