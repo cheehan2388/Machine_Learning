@@ -28,8 +28,10 @@ Moving beyond "black-box" library usage, this portfolio includes rigorous deriva
 
 ### 2. Algorithmic Implementation (from Scratch)
 Implementation of foundational and advanced algorithms without high-level wrappers:
+* **Basic:** **PLA**, **Linear regression** 
 * **Ensemble Learning:** Implementation of **AdaBoost-Stump** and analysis of $E_{in}$ and $E_{out}$ over 500 iterations[cite: 389, 392, 395].
 * **Optimization:** Stochastic Gradient Descent (SGD) for Multinomial Logistic Regression and Coordinate Descent for Elastic Net regularization
+
 
 
 ### 3. Large-Scale Systems
